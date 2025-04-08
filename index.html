@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>自建360场景</title>
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      
+      <!-- 天空背景 -->
+      <a-sky color="#8df1ff"></a-sky>
+      <!-- 环境光 -->
+      <a-light type="ambient" color="#666" intensity="0.5"></a-light>
+
+      <a-assets>
+        <a-asset-item id="ceilinglamp" src="ceiling_lamp1.glb"></a-asset-item>
+        <a-asset-item id="desk" src="desk.glb"></a-asset-item>
+        <a-asset-item id="chair" src="chair.glb"></a-asset-item>
+        <a-asset-item id="stand" src="stand.glb"></a-asset-item>
+        <a-asset-item id="stool" src="stool.glb"></a-asset-item>
+        <a-asset-item id="computer" src="computer.glb"></a-asset-item>
+        <a-asset-item id="blackboard" src="blackboard.glb"></a-asset-item>
+        <a-asset-item id="screen" src="screen.glb"></a-asset-item>
+        <a-asset-item id="projector" src="projector.glb"></a-asset-item>
+        <a-asset-item id="speaker" src="speaker.glb"></a-asset-item>
+        <a-asset-item id="shelves" src="shelves.glb"></a-asset-item>
+        <a-asset-item id="box" src="box.glb"></a-asset-item>
+        <a-asset-item id="door" src="door.glb"></a-asset-item>
+        <img id="boardtext" src="boardtext.png">
+        <img id="screentext" src="screentext.png">
+        <audio id="musicNW" src="Marty_Friedman.mp3"></audio>
+        <audio id="musicSW" src="Kiko_Loureiro.mp3"></audio>
+        <audio id="musicNE" src="Julian_Lage.mp3"></audio>
+        <audio id="musicSE" src="Greg_Howe.mp3"></audio>
+        
+      </a-assets>
+    
+<!-- 讲台 -->
+<a-entity position="-5 0 -6">
+  <!-- 讲桌 -->
+  <a-entity gltf-model="#stand" position="0 0.05 0" scale="0.22 0.22 0.3" rotation="0 180 0"></a-entity>
+  <!-- 盒子 -->
+  <a-entity gltf-model="#box" position="0.8 1.1 0.3" scale="0.15 0.1 0.1" rotation="0 33 0"></a-entity>  
+  <!-- 椅子 -->
+  <a-entity gltf-model="#stool" position="0.5 0 -1" scale="2 2 2" rotation="0 120 0" roughness="1"></a-entity>
+  <!-- 电脑 -->
+  <a-entity gltf-model="#computer" position="0 1.1 0" scale="0.0024 0.0024 0.0024" rotation="0 180 0" roughness="1"></a-entity>  
+</a-entity>
+
+<!-- 黑板 -->
+<a-entity gltf-model="#blackboard" position="0 2.3 -9.98" scale="11 4 1" rotation="0 0 0"></a-entity>
+
+<!-- 黑板字 -->
+<a-plane 
+  src="#boardtext" 
+  position="-2 2.5 -9.97" 
+  width="6"
+  height="3"
+  transparent="true">
+</a-plane>
+
+
+
+<!-- 幕布 -->
+<a-entity gltf-model="#screen" position="3.5 2.15 -9.8" scale="4 3 4" rotation="0 90 0"></a-entity>
+
+<!-- 幕布字 -->
+<a-plane 
+  src="#screentext" 
+  position="3.5 2.5 -9.75" 
+  width="5"
+  height="2.5"
+  transparent="true">
+</a-plane>
+
+
+
+<!-- 投影 -->
+<a-entity gltf-model="#projector" position="3 3.28 -2" scale="1 1 1" rotation="0 115 0"></a-entity>
+
+<!-- 音响左前 -->
+<a-entity gltf-model="#speaker" position="-9.82 2.8 -3" scale="0.06 0.06 0.06" rotation="0 75 0"
+          id="speaker1" class="clickable" sound="src: #musicNW; on: click; autoplay: false; loop: false"></a-entity>
+
+<!-- 音响右前 -->
+<a-entity gltf-model="#speaker" position="9.82 2.8 -3" scale="0.06 0.06 0.06" rotation="0 -75 0"
+          id="speaker2" class="clickable" sound="src: #musicNE; on: click; autoplay: false; loop: false"></a-entity>
+
+<!-- 音响左后 -->
+<a-entity gltf-model="#speaker" position="-9.82 2.8 3" scale="0.06 0.06 0.06" rotation="0 75 0"
+          id="speaker3" class="clickable" sound="src: #musicSW; on: click; autoplay: false; loop: false"></a-entity>
+
+<!-- 音响右后 -->
+<a-entity gltf-model="#speaker" position="9.82 2.8 3" scale="0.06 0.06 0.06" rotation="0 -75 0"
+          id="speaker4" class="clickable" sound="src: #musicSE; on: click; autoplay: false; loop: false"></a-entity>
+
+<!-- 书架 -->
+<a-entity gltf-model="#shelves" position="-7.8 0 9.5 " scale="1 1.2 2" rotation="0 90 0"></a-entity>
+
+<!-- 灯具组合1（灯泡模型 + 点光源） -->
+<a-entity position="0 3 0">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity>
+  
+<!-- 灯具组合2（灯泡模型 + 点光源） -->
+<a-entity position="0 3 -6">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity>
+
+<!-- 灯具组合3（灯泡模型 + 点光源） -->
+<a-entity position="0 3 6">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity>
+
+<!-- 灯具组合4（灯泡模型 + 点光源） -->
+<a-entity position="6 3 0">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity>  
+
+<!-- 灯具组合5（灯泡模型 + 点光源） -->
+<a-entity position="-6 3 0">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity>  
+
+<!-- 灯具组合6（灯泡模型 + 点光源） -->
+<a-entity position="-6 3 6">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity> 
+
+<!-- 灯具组合7（灯泡模型 + 点光源） -->
+<a-entity position="-6 3 -6">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity> 
+ 
+<!-- 灯具组合8（灯泡模型 + 点光源） -->
+<a-entity position="6 3 -6">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity>   
+
+<!-- 灯具组合9（灯泡模型 + 点光源） -->
+<a-entity position="6 3 6">
+    <!-- 灯泡模型 -->
+    <a-entity 
+      gltf-model="#ceilinglamp" 
+      position="0 1 0" 
+      scale="0.8 0.5 0.8"
+      rotation="0 180 0"
+      material="emissive: #fff; emissiveIntensity: 1">
+    </a-entity>
+  
+    <!-- 点光源 -->
+    <a-light 
+      type="point" 
+      color="#ffffff" 
+      intensity="1" 
+      distance="10" 
+      decay="0.8"
+      position="0 0 0">
+    </a-light>
+  </a-entity>   
+
+
+
+
+      <!-- 地面20*20 -->
+      <a-plane position="0 0 0" rotation="-90 0 0" 
+               width="20" height="20" 
+               src="textures/floor1.jpg"
+               repeat="5 5"
+               roughness="1"
+               side="double"></a-plane>
+      <!-- 前 -->
+      <a-plane position="0 2 -10" rotation="0 0 0" width="20" height="4" 
+               src="textures/wall1.jpg" 
+               repeat="5 1"
+               side="double"></a-plane>
+      <!-- 左 -->
+      <a-plane position="-10 2 0" rotation="0 90 0" width="20" height="4" 
+               src="textures/wall1.jpg" 
+               repeat="5 1"
+               side="double"></a-plane>  
+      <!-- 右 -->
+      <a-plane position="10 2 0" rotation="0 90 0" width="20" height="4" 
+               src="textures/wall1.jpg" 
+               repeat="5 1"
+               side="double"></a-plane>
+      <!-- 后 -->
+      <a-plane position="0 2 10" rotation="0 0 0" width="20" height="4"
+               src="textures/wall1.jpg" 
+               repeat="5 1"
+               side="double"></a-plane>
+      <!-- 上 -->
+      <a-plane position="0 4 0" rotation="-90 0 0" width="20" height="20"
+               color="#767676" 
+               src="textures/ceiling1.jpg" 
+               repeat="5 5"
+               roughness="0.95"               
+               side="double"></a-plane>
+
+
+<!-- 前门 -->
+<a-entity gltf-model="#door" position="9.85 0 -9" scale="3 3 3" rotation="0 90 0"></a-entity>
+<!-- 后门 -->
+<a-entity gltf-model="#door" position="2 0 9.85" scale="3 3 3" rotation="0  0"></a-entity>
+
+
+<!-- 2c桌椅 -->
+<a-entity position="0 0 -0.5">
+    <!-- 桌子 -->
+    <a-entity gltf-model="#desk" position="0.09 0 0" scale="0.07 0.11 0.1" rotation="0 95 0" class="clickable" show-message="text: 2c,李逵"></a-entity>
+    <!-- 椅子 -->
+    <a-entity gltf-model="#chair" position="0.1 0.61 0.5" scale="0.5 0.5 0.5" rotation="0 90 0" class="clickable" show-message="text: 2c,李逵"></a-entity>
+</a-entity>
+
+<!-- 3c桌椅 -->
+<a-entity position="0 0 1.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="-0.02 0 -0.3" scale="0.07 0.11 0.1" rotation="0 88 0" class="clickable" show-message="text: 3c,妙玉"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="-0.10 0.61 0.52" scale="0.5 0.5 0.5" rotation="0 85 0" class="clickable" show-message="text: 3c,妙玉"></a-entity>
+</a-entity>
+  
+<!-- 4c桌椅 -->
+<a-entity position="0 0 3.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 92 0" class="clickable" show-message="text: 4c,公孙胜"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.05 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 4c,公孙胜"></a-entity>
+</a-entity>  
+
+<!-- 5c桌椅 -->
+<a-entity position="0 0 5.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="-0.10 0 0.05" scale="0.07 0.11 0.1" rotation="0 82 0" class="clickable" show-message="text: 5c,刘姥姥"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.15 0.61 0.54" scale="0.5 0.5 0.5" rotation="0 92 0" class="clickable" show-message="text: 5c,刘姥姥"></a-entity>
+</a-entity> 
+  
+<!-- 1c桌椅 -->
+<a-entity position="0 0 -2.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 92 0" class="clickable" show-message="text: 1c,史湘云"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.05 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 1c,史湘云"></a-entity>
+</a-entity> 
+
+
+
+
+
+<!-- 2b桌椅 -->
+<a-entity position="-3 0 -0.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="0.09 0 0" scale="0.07 0.11 0.1" rotation="0 87 0" class="clickable" show-message="text: 2b,王熙凤"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.1 0.61 0.5" scale="0.5 0.5 0.5" rotation="0 90 0" class="clickable" show-message="text: 2b,王熙凤"></a-entity>
+</a-entity>
+
+<!-- 3b桌椅 -->
+<a-entity position="-3 0 1.5">
+<!-- 桌子 -->
+<a-entity gltf-model="#desk" position="-0.02 0 -0.3" scale="0.07 0.11 0.1" rotation="0 95 0" class="clickable" show-message="text: 3b,鲁智深"></a-entity>
+<!-- 椅子 -->
+<a-entity gltf-model="#chair" position="-0.30 0.61 0.52" scale="0.5 0.5 0.5" rotation="0 85 0" class="clickable" show-message="text: 3b,鲁智深"></a-entity>
+</a-entity>
+
+<!-- 4b桌椅 -->
+<a-entity position="-3 0 3.5">
+<!-- 桌子 -->
+<a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 88 0" class="clickable" show-message="text: 4b,贾探春"></a-entity>
+<!-- 椅子 -->
+<a-entity gltf-model="#chair" position="0.08 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 4b,贾探春"></a-entity>
+</a-entity>  
+
+<!-- 5b桌椅 -->
+<a-entity position="-3 0 5.5">
+<!-- 桌子 -->
+<a-entity gltf-model="#desk" position="-0.10 0 0.05" scale="0.07 0.11 0.1" rotation="0 92 0" class="clickable" show-message="text: 5b,吴用"></a-entity>
+<!-- 椅子 -->
+<a-entity gltf-model="#chair" position="-0.15 0.61 0.54" scale="0.5 0.5 0.5" rotation="0 92 0" class="clickable" show-message="text: 5b,吴用"></a-entity>
+</a-entity> 
+
+<!-- 1b桌椅 -->
+<a-entity position="-3 0 -2.5">
+<!-- 桌子 -->
+<a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 89 0" class="clickable" show-message="text: 1b,林冲"></a-entity>
+<!-- 椅子 -->
+<a-entity gltf-model="#chair" position="0.05 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 1b,林冲"></a-entity>
+</a-entity> 
+
+
+
+
+
+<!-- 2a桌椅 -->
+<a-entity position="-6 0 -0.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="-0.02 0 -0.3" scale="0.07 0.11 0.1" rotation="0 95 0" class="clickable" show-message="text: 2a,宋江"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="-0.30 0.61 0.52" scale="0.5 0.5 0.5" rotation="0 85 0" class="clickable" show-message="text: 2a,宋江"></a-entity>
+  </a-entity>
+  
+<!-- 3a桌椅 -->
+  <a-entity position="-6 0 1.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 88 0" class="clickable" show-message="text: 3a,林黛玉"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.08 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 3a,林黛玉"></a-entity>
+  </a-entity> 
+
+ <!-- 4a桌椅 -->
+<a-entity position="-6 0 3.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="-0.02 0 -0.3" scale="0.07 0.11 0.1" rotation="0 88 0" class="clickable" show-message="text: 4a,武松"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="-0.10 0.61 0.52" scale="0.5 0.5 0.5" rotation="0 85 0" class="clickable" show-message="text: 4a,武松"></a-entity>
+</a-entity>
+  
+<!-- 5a桌椅 -->
+<a-entity position="-6 0 5.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 92 0" class="clickable" show-message="text: 5a,薛宝钗"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.05 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 5a,薛宝钗"></a-entity>
+</a-entity>  
+
+<!-- 1a桌椅 -->
+<a-entity position="-6 0 -2.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="-0.10 0 0.05" scale="0.07 0.11 0.1" rotation="0 82 0" class="clickable" show-message="text: 1a,贾宝玉"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.15 0.61 0.54" scale="0.5 0.5 0.5" rotation="0 92 0" class="clickable" show-message="text: 1a,贾宝玉"></a-entity>
+</a-entity>  
+
+
+
+
+<!-- 2d桌椅 -->
+<a-entity position="3 0 -0.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="-0.02 0 -0.3" scale="0.07 0.11 0.1" rotation="0 90 0" class="clickable" show-message="text: 2d,平儿"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="-0.30 0.61 0.52" scale="0.5 0.5 0.5" rotation="0 85 0" class="clickable" show-message="text: 2d,平儿"></a-entity>
+  </a-entity>
+  
+<!-- 3d桌椅 -->
+  <a-entity position="3 0 1.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 88 0" class="clickable" show-message="text: 3d,扈三娘"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.11 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 3d,扈三娘"></a-entity>
+  </a-entity> 
+
+ <!-- 4d桌椅 -->
+<a-entity position="3 0 3.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="-0.02 0 -0.3" scale="0.07 0.11 0.1" rotation="0 92 0" class="clickable" show-message="text: 4d,袭人"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="-0.10 0.61 0.52" scale="0.5 0.5 0.5" rotation="0 85 0" class="clickable" show-message="text: 4d,袭人"></a-entity>
+</a-entity>
+  
+<!-- 5d桌椅 -->
+<a-entity position="3 0 5.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 87 0" class="clickable" show-message="text: 5d,顾大嫂"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.05 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 5d,顾大嫂"></a-entity>
+</a-entity>  
+
+<!-- 1d桌椅 -->
+<a-entity position="3 0 -2.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="-0.10 0 0.05" scale="0.07 0.11 0.1" rotation="0 82 0" class="clickable" show-message="text: 1d,燕青"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.15 0.61 0.54" scale="0.5 0.5 0.5" rotation="0 92 0" class="clickable" show-message="text: 1d,燕青"></a-entity>
+</a-entity> 
+
+
+
+
+
+<!-- 2e桌椅 -->
+<a-entity position="6 0 -0.5">
+  <!-- 桌子 -->
+  <a-entity gltf-model="#desk" position="0.09 0 0" scale="0.07 0.11 0.1" rotation="0 87 0" class="clickable" show-message="text: 2e,杨志"></a-entity>
+  <!-- 椅子 -->
+  <a-entity gltf-model="#chair" position="0.1 0.61 0.5" scale="0.5 0.5 0.5" rotation="0 90 0" class="clickable" show-message="text: 2e,杨志"></a-entity>
+</a-entity>
+
+<!-- 3e桌椅 -->
+<a-entity position="6 0 1.5">
+<!-- 桌子 -->
+<a-entity gltf-model="#desk" position="-0.02 0 -0.3" scale="0.07 0.11 0.1" rotation="0 95 0" class="clickable" show-message="text: 3e,晴雯"></a-entity>
+<!-- 椅子 -->
+<a-entity gltf-model="#chair" position="-0.30 0.61 0.52" scale="0.5 0.5 0.5" rotation="0 85 0" class="clickable" show-message="text: 3e,晴雯"></a-entity>
+</a-entity>
+
+<!-- 4e桌椅 -->
+<a-entity position="6 0 3.5">
+<!-- 桌子 -->
+<a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 88 0" class="clickable" show-message="text: 4e,阮小二"></a-entity>
+<!-- 椅子 -->
+<a-entity gltf-model="#chair" position="0.08 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 4e,阮小二"></a-entity>
+</a-entity>  
+
+<!-- 5e桌椅 -->
+<a-entity position="6 0 5.5">
+<!-- 桌子 -->
+<a-entity gltf-model="#desk" position="-0.10 0 0.05" scale="0.07 0.11 0.1" rotation="0 92 0" class="clickable" show-message="text: 5e,贾蓉"></a-entity>
+<!-- 椅子 -->
+<a-entity gltf-model="#chair" position="-0.15 0.61 0.54" scale="0.5 0.5 0.5" rotation="0 92 0" class="clickable" show-message="text: 5e,贾蓉"></a-entity>
+</a-entity> 
+
+<!-- 1e桌椅 -->
+<a-entity position="6 0 -2.5">
+<!-- 桌子 -->
+<a-entity gltf-model="#desk" position="0.1 0 -0.02" scale="0.07 0.11 0.1" rotation="0 89 0" class="clickable" show-message="text: 1e,贾琏"></a-entity>
+<!-- 椅子 -->
+<a-entity gltf-model="#chair" position="0.05 0.61 0.48" scale="0.5 0.5 0.5" rotation="0 94 0" class="clickable" show-message="text: 1e,贾琏"></a-entity>
+</a-entity> 
+
+
+
+
+
+      <!-- 5. 圆环结 torusKnot -->
+      <a-entity geometry="primitive: torusKnot; radius: 0.2; radiusTubular: 0.002; p: 29; q: 30"
+                position="0 1 -5"
+                rotation="180 0 0"
+                animation="property: rotation; to: 0 0 10800; loop: true; dur: 20000"
+                material="color: #000000"></a-entity>
+      
+      <!-- 相机可以上下移动 -->
+      <a-entity camera 
+      position="0 1.6 0" 
+      look-controls
+      wasd-controls="fly: true">
+        <a-cursor 
+        fuse="false" 
+        raycaster="objects: .clickable" 
+        material="color: red; shader: flat">
+        </a-cursor>
+      </a-entity>
+
+
+
+      <script>
+        AFRAME.registerComponent('show-message', {
+          schema: {
+            text: {type: 'string'}
+          },
+          init: function () {
+            this.el.addEventListener('click', () => {
+              alert(this.data.text);
+            });
+          }
+        });
+    </script>
+
+
+
+
+    </a-scene>
+  </body>
+</html>
